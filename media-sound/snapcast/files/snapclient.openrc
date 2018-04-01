@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+
+name=snapclient
+command="/usr/bin/snapclient"
+command_args="-d $USER_OPTS $SNAPCLIENT_OPTS"
+pidfile="/run/snapclient/pid"
+
+depend() {
+	need net avahi-daemon
+}
+
+start_pre() {
+	checkpath --directory --owner snapclient:audio --mode 0775 \
+		/var/log/snapcast /run/snapclient
+}

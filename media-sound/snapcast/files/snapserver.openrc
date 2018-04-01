@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+
+name=snapserver
+command="/usr/bin/snapserver"
+command_args="-d $USER_OPTS $SNAPSERVER_OPTS"
+pidfile="/run/snapserver/pid"
+
+depend() {
+	need net avahi-daemon
+}
+
+start_pre() {
+	checkpath --directory --owner snapserver:snapserver --mode 0775 \
+		/run/snapserver
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+<email>cb-gentoo@guya.de</email>
+</maintainer>
+<use>
+	<flag name="server">Build and install Snapcast server component</flag>
+	<flag name="client">Build and install Snapcast client component</flag>
+</use>
+</pkgmetadata>
