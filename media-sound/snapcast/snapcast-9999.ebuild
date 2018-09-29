@@ -9,6 +9,12 @@ DESCRIPTION="Synchronous multi-room audio player"
 HOMEPAGE="https://github.com/badaix/snapcast"
 EGIT_REPO_URI="https://github.com/badaix/snapcast.git"
 
+if [[ ${PV} == *9999 ]] ; then
+	EGIT_BRANCH="develop"
+else
+	EGIT_COMMIT="v${PV}"
+fi
+
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
