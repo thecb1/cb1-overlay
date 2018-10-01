@@ -17,7 +17,7 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="+server +client"
 
 REQUIRED_USE="|| ( server client )"
@@ -45,7 +45,7 @@ src_compile() {
 	for bin in server client
 	do
 		if use ${bin} ; then
-			emake STRIP="echo" "${bin}"
+			emake STRIP="echo" ADD_CFLAGS="${CXXFLAGS}" ADD_LDFLAGS="${LDFLAGS}" "${bin}"
 		fi
 	done
 }
