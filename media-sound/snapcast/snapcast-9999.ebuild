@@ -58,7 +58,7 @@ src_install() {
 			doman "${bin}/snap${bin}.1"
 
 			newconfd "${S}/${bin}/debian/snap${bin}.default" "snap${bin}"
-			newinitd "${FILESDIR}/snap${bin}.openrc" "snap${bin}"
+			newinitd "${FILESDIR}/snap${bin}.initd" "snap${bin}"
 		fi
 	done
 }
