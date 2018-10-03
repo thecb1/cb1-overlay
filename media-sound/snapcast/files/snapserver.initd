@@ -8,7 +8,8 @@ command_args="-d $USER_OPTS $SNAPSERVER_OPTS"
 pidfile="/run/snapserver/pid"
 
 depend() {
-	need net avahi-daemon
+	need net
+	use avahi-daemon
 }
 
 start_pre() {
