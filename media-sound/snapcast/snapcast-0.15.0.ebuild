@@ -60,9 +60,6 @@ src_prepare() {
 		cp "${WORKDIR}/aixlog-${AIXLOGVER}/include/aixlog.hpp" "${WORKDIR}/${P}/"
 	fi
 
-	# Removing dependency for libatomic
-	sed -i '/atomic_fetch_add_4/d' "${S}/CMakeLists.txt" || die
-
 	cmake-utils_src_prepare
 }
 
