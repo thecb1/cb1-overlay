@@ -11,6 +11,8 @@ if [[ ${PV} == *9999 ]] ; then
 
 	EGIT_REPO_URI="https://github.com/badaix/snapcast.git"
 	EGIT_BRANCH="develop"
+
+	KEYWORDS=""
 else
 	inherit user cmake-utils
 
@@ -20,11 +22,12 @@ else
 	SRC_URI="https://github.com/badaix/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
 		https://github.com/badaix/popl/archive/v${POPLVER}.tar.gz -> popl-v${POPLVER}.tar.gz
 		https://github.com/badaix/aixlog/archive/v${AIXLOGVER}.tar.gz -> aixlog-v${AIXLOGVER}.tar.gz"
+
+	KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
 IUSE="+avahi +client +flac +server static-libs test tremor +vorbis"
 
 REQUIRED_USE="|| ( server client )"
@@ -40,16 +43,13 @@ RDEPEND="${DEPEND}"
 PATCHES=( "${FILESDIR}/${PN}-options-for-use-flags.patch" )
 
 pkg_preinst() {
-	for bin in server client
-	do
-		if use server ; then
-			enewgroup "snapserver"
-			enewuser "snapserver" -1 -1 /dev/null snapserver
-		fi
-		if use client ; then
-			enewuser "snapclient" -1 -1 /dev/null audio
-		fi
-	done
+	if use server ; then
+		enewgroup "snapserver"
+		enewuser "snapserver" -1 -1 /dev/null snapserver
+	fi
+	if use client ; then
+		enewuser "snapclient" -1 -1 /dev/null audio
+	fi
 }
 
 src_prepare() {
@@ -60,8 +60,6 @@ src_prepare() {
 		cp "${WORKDIR}/popl-${POPLVER}/include/popl.hpp" "${WORKDIR}/${P}/"
 		cp "${WORKDIR}/aixlog-${AIXLOGVER}/include/aixlog.hpp" "${WORKDIR}/${P}/"
 	fi
-
-	eapply_user
 
 	cmake-utils_src_prepare
 }
