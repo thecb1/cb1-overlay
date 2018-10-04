@@ -11,8 +11,6 @@ if [[ ${PV} == *9999 ]] ; then
 
 	EGIT_REPO_URI="https://github.com/badaix/snapcast.git"
 	EGIT_BRANCH="develop"
-
-	KEYWORDS=""
 else
 	inherit user cmake-utils
 
@@ -53,6 +51,7 @@ pkg_preinst() {
 }
 
 src_prepare() {
+	# Resolving depencies not worth packaging
 	if [[ ${PV} == *9999 ]] ; then
 		cp "${S}/externals/popl/include/popl.hpp" "${S}/"
 		cp "${S}/externals/aixlog/include/aixlog.hpp" "${S}/"
@@ -60,6 +59,9 @@ src_prepare() {
 		cp "${WORKDIR}/popl-${POPLVER}/include/popl.hpp" "${WORKDIR}/${P}/"
 		cp "${WORKDIR}/aixlog-${AIXLOGVER}/include/aixlog.hpp" "${WORKDIR}/${P}/"
 	fi
+
+	# Removing dependency for libatomic
+	sed -i '/atomic_fetch_add_4/d' "${S}/CMakeLists.txt" || die
 
 	cmake-utils_src_prepare
 }
