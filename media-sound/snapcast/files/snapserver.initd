@@ -4,11 +4,10 @@
 
 name=snapserver
 command="/usr/bin/snapserver"
-command_args="-d $USER_OPTS $SNAPSERVER_OPTS"
+command_args="$SNAPSERVER_USER $SNAPSERVER_OPTS"
 pidfile="/run/snapserver/pid"
 
 depend() {
-	need net
 	use avahi-daemon
 }
 
