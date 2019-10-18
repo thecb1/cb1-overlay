@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+# Copyright 2019 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="forked-daapd"
+command=/usr/sbin/forked-daapd
+pidfile="/run/forked-daapd.pid"
+
+depend() {
+        use avahi-daemon
+}
